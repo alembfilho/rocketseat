@@ -1,6 +1,8 @@
 import { ArrowLeft, Camera } from "phosphor-react";
+import { useState } from "react";
 import { FeedbackType, feedbackTypes } from "..";
 import { CloseButton } from "../../CloseButton";
+import { ScreenshotButton } from "./ScreenshotButton";
 
 interface FeedbackContentStepProps {
   setFeedbackType: (type: FeedbackType | null) => void
@@ -9,6 +11,7 @@ interface FeedbackContentStepProps {
 
 export function FeedbackContentStep({ feedbackType, setFeedbackType }: FeedbackContentStepProps) {
   const feedbackTypesInfo = feedbackTypes[feedbackType]
+  const [screenshot, setScreenshot] = useState<string | null>(null)
 
   return (<>
     <header>
@@ -28,18 +31,15 @@ export function FeedbackContentStep({ feedbackType, setFeedbackType }: FeedbackC
 
     <form className="my-4 w-full">
       <textarea
-        className="min-w[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-700"
+        className="min-w[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-700"
         placeholder="Conte com detalhes o que está acontecendo..."
       />
 
       <footer className="flex gap-2">
-        <button
-          type="button"
-          className="p-2 bg-zinc-800 rounded border-transparent hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500"
-
-        >
-          <Camera className="w-6 h-6" />
-        </button>
+        <ScreenshotButton
+          screenshot={screenshot}
+          setScreenshot={setScreenshot}
+        />
 
         <button
           type="submit"
