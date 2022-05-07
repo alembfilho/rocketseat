@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ChatTeardropDots } from 'phosphor-react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -7,9 +7,18 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { styles } from './styles';
 import { theme } from '../../theme';
 import { Options } from '../Options';
+import { feedbackTypes } from '../../utils/feedbackTypes';
+import { Form } from '../Form';
+import { Success } from '../Success';
+import { Copyright } from '../Copyright';
+
+export type FeedbackTypes = keyof typeof feedbackTypes
 
 function Widget() {
 
+    const [feedbackType, setFeedbackType] = useState<FeedbackTypes | null>(null)
+    const [screenshot, setScreenshot] = useState<string | null>(null)
+    const [feedbackSent, setfeedbackSent] = useState(true)
     const bottomSheetRef = useRef<BottomSheet>(null)
 
     function handleOpen() {
@@ -37,7 +46,20 @@ function Widget() {
                 backgroundStyle={styles.modal}
                 handleIndicatorStyle={styles.indicator}
             >
-                <Options />
+                {feedbackSent ?
+                    <Success setFeedbackSent={setfeedbackSent} /> :
+                    feedbackType ?
+                        <Form
+                            feedbackType={feedbackType}
+                            setFeedbackType={setFeedbackType}
+                            screenshot={screenshot}
+                            setScreenshot={setScreenshot}
+                        /> :
+                        <Options onPress={setFeedbackType} />
+                }
+
+                <Copyright />
+
             </BottomSheet>
         </>
     );

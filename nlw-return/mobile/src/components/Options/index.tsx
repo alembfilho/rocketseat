@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { feedbackTypes } from '../../utils/feedbackTypes';
-import { Copyright } from '../Copyright';
 import { Option } from '../Option';
+import { FeedbackTypes } from '../Widget';
 
 import { styles } from './styles';
 
-export function Options() {
+export function Options({ onPress }: { onPress: (feedbackTypes: FeedbackTypes) => void }) {
     return (
         <View style={styles.container}>
 
@@ -18,11 +18,11 @@ export function Options() {
                         key={key}
                         image={image}
                         title={title}
+                        onPress={() => onPress(key as FeedbackTypes)}
                     />
                 ))}
             </View>
 
-            <Copyright />
         </View>
     );
 }
