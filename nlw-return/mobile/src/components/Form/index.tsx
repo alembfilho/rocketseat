@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { FeedbackTypes } from '../Widget';
 
 import { styles } from './styles';
+import { captureScreen } from 'react-native-view-shot';
 
 interface Props {
     feedbackType: FeedbackTypes,
@@ -18,6 +19,13 @@ interface Props {
 
 export function Form({ feedbackType, setFeedbackType, screenshot, setScreenshot }: Props) {
     const feedbackTypeInfo = feedbackTypes[feedbackType]
+
+    function handleScreenshot() {
+        captureScreen({
+            format: 'jpg',
+            quality: 0.8
+        }).then(uri => setScreenshot(uri))
+    }
 
     return (
         <View style={styles.container}>
@@ -51,7 +59,7 @@ export function Form({ feedbackType, setFeedbackType, screenshot, setScreenshot 
             <View style={styles.buttons}>
                 <ScreenshotButton
                     screenshot={screenshot}
-                    onTakeShot={() => setScreenshot('a')}
+                    onTakeShot={handleScreenshot}
                     onRemoveShot={() => setScreenshot(null)}
                 />
 
