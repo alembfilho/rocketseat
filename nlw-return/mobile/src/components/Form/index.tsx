@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'phosphor-react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import { theme } from '../../theme';
@@ -24,7 +24,6 @@ export function Form({ feedbackType, setFeedbackType, setFeedbackSent }: Props) 
     const [screenshot, setScreenshot] = useState<string | null>(null)
     const [comment, setComment] = useState("")
 
-
     function handleScreenshot() {
         captureScreen({
             format: 'jpg',
@@ -47,7 +46,6 @@ export function Form({ feedbackType, setFeedbackType, setFeedbackSent }: Props) 
 
             setFeedbackSent(true)
             setFeedbackType(null)
-            setLoading(false)
 
         } catch (error) {
             console.log(error)
