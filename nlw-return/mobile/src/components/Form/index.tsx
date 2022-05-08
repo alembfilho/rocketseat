@@ -82,6 +82,7 @@ export function Form({ feedbackType, setFeedbackType, setFeedbackSent }: Props) 
                 placeholder={feedbackTypeInfo.placeholder}
                 placeholderTextColor={theme.colors.text_secondary}
                 onChangeText={setComment}
+                textAlignVertical={'top'}
             />
 
             <View style={styles.buttons}>
