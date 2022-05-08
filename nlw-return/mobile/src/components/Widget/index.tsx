@@ -17,8 +17,7 @@ export type FeedbackTypes = keyof typeof feedbackTypes
 function Widget() {
 
     const [feedbackType, setFeedbackType] = useState<FeedbackTypes | null>(null)
-    const [screenshot, setScreenshot] = useState<string | null>(null)
-    const [feedbackSent, setfeedbackSent] = useState(true)
+    const [feedbackSent, setfeedbackSent] = useState(false)
     const bottomSheetRef = useRef<BottomSheet>(null)
 
     function handleOpen() {
@@ -52,8 +51,7 @@ function Widget() {
                         <Form
                             feedbackType={feedbackType}
                             setFeedbackType={setFeedbackType}
-                            screenshot={screenshot}
-                            setScreenshot={setScreenshot}
+                            setFeedbackSent={setfeedbackSent}
                         /> :
                         <Options onPress={setFeedbackType} />
                 }
